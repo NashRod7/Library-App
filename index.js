@@ -34,7 +34,7 @@ form.style.display="block";
 });
 
 submit.addEventListener("click",(e)=>{
-    // form.style.display="none";
+    form.style.display="none";
     e.preventDefault();
     const bookDetails= document.querySelectorAll("input");
     const title=bookDetails[0].value;
@@ -45,16 +45,28 @@ submit.addEventListener("click",(e)=>{
 
 myLibrary.push(book);
 const newBook = document.createElement("div");
-newBook.setAttribute('id',++bookID);
 const removeBtn = document.createElement("button");
+removeBtn.setAttribute('id',++bookID);
 removeBtn.style.display="block";
 removeBtn.innerHTML="Remove";
 removeBtn.setAttribute("class","remove");
 newBook.innerHTML=`Book Name:${title}<br>Author:${author}<br>Pages:${pages}`;
 para.appendChild(newBook);
 newBook.appendChild(removeBtn);
+console.log(myLibrary);
 })
 
+document.addEventListener("click",(e)=>{
+    if(e.target.matches(".remove"))
+    {
+        const parent=e.target.parentNode;
+        const bookID=e.srcElement.id;
+        const remBook=document.getElementById(`${bookID}`);
+        para.removeChild(parent);
+        myLibrary.splice(bookID-1,1);
+console.log(bookID);
+    }
+})
 
 
 
